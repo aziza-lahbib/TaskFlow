@@ -70,7 +70,7 @@ Chaque utilisateur est rattaché à un département et peut créer, modifier, te
 | `/login`       | LoginComponent       | Public              |
 | `/register`    | RegisterComponent    | Public              |
 | `/profil`      | ProfilComponent      | Protégé (AuthGuard) |
-| `/profilAdmin` | ProfilAdminComponent | Public (à sécuriser)|
+| `/profilAdmin` | ProfilAdminComponent | Protégé (AuthGuard)|
 
 ---
 
