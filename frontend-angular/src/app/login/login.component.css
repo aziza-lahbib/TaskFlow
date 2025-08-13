@@ -1,0 +1,86 @@
+/* src/app/login/login.component.css */
+
+/* Conteneur du formulaire */
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70vh;
+  background-color: #f5f7fa;
+  padding: 30px 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Titre du formulaire */
+h2 {
+  color: #2c3e50;
+  font-size: 2rem;
+  margin-bottom: 25px;
+}
+
+/* Formulaire */
+form {
+  background: white;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  width: 320px;
+  box-sizing: border-box;
+}
+
+/* Label */
+label {
+  font-weight: 600;
+  color: #34495e;
+  display: block;
+  margin-bottom: 6px;
+  font-size: 1rem;
+}
+
+/* Champs input */
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 20px;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 5px 2px rgba(52, 152, 219, 0.4);
+}
+
+/* Bouton de soumission */
+button[type="submit"] {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+/* Message d'erreur */
+p[ng-reflect-ng-if] {
+  margin-top: 15px;
+  color: #e74c3c;
+  font-weight: 600;
+  text-align: center;
+}

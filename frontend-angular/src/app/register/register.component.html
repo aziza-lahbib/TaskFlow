@@ -1,0 +1,31 @@
+<div class="container">
+  <h2>Inscription</h2>
+
+  <form (ngSubmit)="onRegister()">
+    <div>
+      <label>Nom d'utilisateur :</label>
+      <input type="text" [(ngModel)]="user.username" name="username" required>
+    </div>
+
+    <div>
+      <label>Email :</label>
+      <input type="email" [(ngModel)]="user.email" name="email" required>
+    </div>
+
+    <div>
+      <label>Mot de passe :</label>
+      <input type="password" [(ngModel)]="user.password" name="password" required>
+    </div>
+
+    <div>
+      <label>Département :</label>
+      <select [(ngModel)]="user.departmentId" name="departmentId" required>
+        <option *ngFor="let dept of departments" [value]="dept.id">{{ dept.name }}</option>
+      </select>
+    </div>
+
+    <button type="submit">S'inscrire</button>
+  </form>
+
+  <p *ngIf="message">{{ message }}</p>
+</div>

@@ -1,0 +1,77 @@
+<div class="container">
+
+  <header class="header-admin">
+    <h2>Bienvenue, Admin !</h2>
+    <div class="btn-group">
+      <button (click)="logout()" class="btn-danger">Déconnexion</button>
+      <button (click)="ouvrirFormulaireAjouter()" class="btn-success">Ajouter Département</button>
+    </div>
+  </header>
+
+  <section *ngIf="afficherFormulaire" class="formulaire-ajout">
+    <input
+      type="text"
+      [(ngModel)]="nouveauDepartementNom"
+      placeholder="Nom du département"
+      class="form-control"
+    />
+    <button (click)="ajouterDepartement()" class="btn-primary">Créer</button>
+    <button (click)="fermerFormulaire()" class="btn-secondary">Annuler</button>
+  </section>
+
+  <nav class="navbar">
+    <ul>
+      <li *ngFor="let dept of departements">
+        <button (click)="afficherUtilisateurs(dept.id)">
+          {{ dept.name }}
+        </button>
+      </li>
+    </ul>
+  </nav>
+
+  <section *ngIf="selectedDepartementId" class="utilisateurs-section">
+    <h3>Utilisateurs du département : {{ selectedDepartementNom }}</h3>
+    <ul class="user-list">
+      <li *ngFor="let user of utilisateurs" class="user-card">
+        <button (click)="afficherTachesUtilisateur(user)">
+          {{ user.username }} - {{ user.email }}
+        </button>
+      </li>
+    </ul>
+  </section>
+
+  <section *ngIf="tachesUtilisateur && tachesUtilisateur.length > 0" class="taches-section">
+    <h4 class="mt-4 mb-3">Tâches de {{ utilisateurSelectionne?.username }} :</h4>
+    <ul>
+      <li *ngFor="let tache of tachesUtilisateur" class="tache-card">
+        <input 
+          type="checkbox" 
+          [(ngModel)]="tache.selected" 
+          [disabled]="!tache.completed" 
+          class="tache-checkbox" 
+        />
+        <div class="tache-info">
+          <div class="tache-title">{{ tache.title }}</div>
+          <div class="tache-description">{{ tache.description }}</div>
+        </div>
+        <div class="tache-status-badges">
+          <div
+            class="tache-status"
+            [ngClass]="tache.completed ? 'status-terminee' : 'status-en-cours'"
+          >
+            {{ tache.completed ? 'Terminée' : 'En cours' }}
+          </div>
+
+          <span *ngIf="tache.validee === 1" class="badge-validated">Validée</span>
+          <span *ngIf="tache.validee === 0" class="badge-refused">Refusée</span>
+        </div>
+      </li>
+    </ul>
+
+    <div class="buttons-action">
+      <button (click)="validerTaches()">Valider</button>
+      <button (click)="refuserTaches()">Refuser</button>
+    </div>
+  </section>
+
+</div>

@@ -1,0 +1,88 @@
+<div class="container" *ngIf="user; else loadingProfile">
+
+  <div class="header">
+    <h2>Bienvenue, {{ user.username }}</h2>
+    <button class="logout-btn" (click)="logout()">Déconnexion</button>
+  </div>
+
+  <h2>Mes Tâches</h2>
+
+  <div *ngIf="loadingTasks">Chargement des tâches...</div>
+
+  <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+
+  <div *ngIf="!loadingTasks && tasks.length > 0; else noTasks">
+    <div class="task-card" *ngFor="let task of tasks">
+      <input
+        type="checkbox"
+        [checked]="task.completed"
+        (change)="toggleTaskStatus(task)"
+        [disabled]="task.validee === 1 || task.validee === 0"
+        aria-label="Statut de la tâche"
+      />
+
+      <ng-container *ngIf="editingTaskId === task.id; else displayMode">
+        <div class="task-details">
+          <input [(ngModel)]="editedTitle" placeholder="Titre" required />
+          <input [(ngModel)]="editedDescription" placeholder="Description" required />
+          <span [style.color]="task.completed ? 'green' : 'orange'">
+            {{ task.completed ? '✔️ Terminée' : '⏳ En cours' }}
+          </span>
+
+          <span *ngIf="task.validee === 1" class="validated-indicator">
+            ✔️ Validée par admin
+          </span>
+          <span *ngIf="task.validee === 0" class="refused-indicator">
+            ❌ Refusée par admin
+          </span>
+        </div>
+        <div class="task-actions">
+          <!-- Sauvegarder interdit si validée -->
+          <button (click)="saveTask(task)" [disabled]="task.validee === 1">💾 Enregistrer</button>
+          <button (click)="cancelEdit()">❌ Annuler</button>
+        </div>
+      </ng-container>
+
+      <ng-template #displayMode>
+        <div class="task-details">
+          <h4>{{ task.title }}</h4>
+          <p>{{ task.description }}</p>
+          <span [style.color]="task.completed ? 'green' : 'orange'">
+            {{ task.completed ? '✔️ Terminée' : '⏳ En cours' }}
+          </span>
+
+          <span *ngIf="task.validee === 1" class="validated-indicator">
+            ✔️ Validée par admin
+          </span>
+          <span *ngIf="task.validee === 0" class="refused-indicator">
+            ❌ Refusée par admin
+          </span>
+        </div>
+        <div class="task-actions">
+          <!-- Autorise édition uniquement si NON validée -->
+          <button *ngIf="task.validee !== 1" (click)="editTask(task)">✏️</button>
+          <!-- Suppression toujours possible -->
+          <button (click)="deleteTask(task.id)">🗑️</button>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+
+  <ng-template #noTasks>
+      <p>Commencez votre première tâche pour bien démarrer !</p>
+    
+  </ng-template>
+
+  <h3>➕ Ajouter une nouvelle tâche</h3>
+
+  <form (ngSubmit)="addTask()" #taskForm="ngForm">
+    <input type="text" name="title" [(ngModel)]="newTaskTitle" placeholder="Titre" required />
+    <input type="text" name="description" [(ngModel)]="newTaskDescription" placeholder="Description" required />
+    <button type="submit" [disabled]="!taskForm.form.valid">Ajouter</button>
+  </form>
+
+</div>
+
+<ng-template #loadingProfile>
+  <p>Chargement du profil...</p>
+</ng-template>
