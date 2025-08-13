@@ -94,8 +94,11 @@ L’application suit une architecture **client-serveur** :
 
 ## Installation et exécution
 
-### 1. Cloner le projet  
-```bash
+
+
+################"
+
+### 1.Cloner le projet  
 git clone https://github.com/votre-utilisateur/TaskFlow.git
 
 ### 2. Backend 
